@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "author": "João Paulo Antunes",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-esp32-devkit-v1", "id": "esp", "top": -285.84, "left": -94.64, "attrs": {} },
+    { "type": "wokwi-ili9341", "id": "lcd1", "top": -365.86, "left": 379.12, "attrs": {} }
+  ],
+  "connections": [
+    [ "esp:TX0", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX0", "$serialMonitor:TX", "", [] ],
+    [ "lcd1:GND", "esp:GND.1", "black", [ "v38", "h-194.72", "v-7.61" ] ],
+    [ "lcd1:VCC", "esp:3V3", "red", [ "v9.85", "h-245.99", "v-44.13", "h3.04" ] ],
+    [ "lcd1:LED", "esp:3V3", "green", [ "v15.18", "h-302.55", "v-49.45" ] ],
+    [ "esp:D19", "lcd1:MISO", "green", [ "h184.67", "v227.01", "h47.17" ] ],
+    [ "lcd1:MOSI", "esp:D23", "green", [ "v83.65", "h-278.02", "v-245.74" ] ],
+    [ "lcd1:SCK", "esp:D18", "green", [ "v140.71", "h-265.56", "v-19.78" ] ],
+    [ "lcd1:D/C", "esp:D21", "green", [ "v95.82", "h-280.59", "v-227.48" ] ],
+    [ "esp:D22", "lcd1:CS", "green", [ "h15.76", "v316.18", "h274.66" ] ]
+  ]
+}
