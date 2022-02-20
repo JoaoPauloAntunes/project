@@ -15,5 +15,18 @@ class Pin:
         self.id = pin_id
 
 
+CE0 = Pin("SPI0_CS0")  # P9_17
+MOSI = Pin("SPI0_D1")  # P9_18
+MISO = Pin("SPI0_D0")  # P9_21
+SCLK = Pin("SPI0_SCLK")  # P9_22
+
+
+def SPI():
+    """The singleton SPI interface"""
+    import my_busio
+
+    return my_busio.SPI(SCLK, MOSI, MISO)
+        
+
 C0 = Pin(8)
 C1 = Pin(9)
