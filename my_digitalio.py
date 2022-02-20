@@ -7,7 +7,6 @@ See `CircuitPython:digitalio` in CircuitPython for more details.
 * Author(s): cefn
 """
 import my_adafruit_platformdetect
-import my_gpio
 
 
 detector = my_adafruit_platformdetect.Detector()
@@ -64,6 +63,38 @@ class Pin:
             raise ValueError("Incorrect pin mode: {}".format(mode))
         self._mode = mode
 
+    def value(self, val=None):
+        """Set or return the Pin Value"""
+        # Digital In / Out
+        if self._mode in (Pin.IN, Pin.OUT):
+            # digital read
+            if val is None:
+                return self._pin.get_state()
+            # digital write
+            if val in (Pin.LOW, Pin.HIGH):
+                print({"val": val})
+                # self._pin.set_state(val)
+                return None
+            # nope
+            raise ValueError("Invalid value for pin.")
+        # Analog In
+        if self._mode == Pin.ADC:
+            if val is None:
+                # Read ADC here
+                return self._pin.read_samples()[0]
+            # read only
+            raise AttributeError("'AnalogIn' object has no attribute 'value'")
+        # Analog Out
+        if self._mode == Pin.DAC:
+            if val is None:
+                # write only
+                raise AttributeError("unreadable attribute")
+            # Set DAC Here
+            self._pin.set_value(int(val))
+            return None
+        raise RuntimeError(
+            "No action for mode {} with value {}".format(self._mode, val)
+        )
 
 class Enum:
     """

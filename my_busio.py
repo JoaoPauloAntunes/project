@@ -144,77 +144,97 @@ class SPI(Lockable):
         from my_adafruit_blinka_microcontroller_generic_micropython_spi import (
             SPI as _SPI,
         )
-        from microcontroller.pin import spiPorts
+        # from my_board import Pin
+        
+        # SPI_MO = Pin(4)  # EINT4  (pin 19)
+        # SPI_MI = Pin(3)  # EINT3  (pin 21)
+        # SPI_CLK = Pin(6)  # EINT6  (pin 23)
 
-        for portId, portSck, portMosi, portMiso in spiPorts:
-            if (
-                (clock == portSck)
-                and MOSI in (portMosi, None)  # Clock is required!
-                and MISO in (portMiso, None)  # But can do with just output
-            ):  # Or just input
-                self._spi = _SPI(portId)
-                self._pins = (portSck, portMosi, portMiso)
-                break
-        else:
-            raise ValueError(
-                "No Hardware SPI on (SCLK, MOSI, MISO)={}\nValid SPI ports:{}".format(
-                    (clock, MOSI, MISO), spiPorts
-                )
-            )
+        # # ordered as spiId, sckId, mosiId, misoId
+        # spiPorts = ((0, SPI_CLK, SPI_MO, SPI_MI),)
+
+        # for portId, portSck, portMosi, portMiso in spiPorts:
+        #     if (
+        #         (clock == portSck)
+        #         and MOSI in (portMosi, None)  # Clock is required!
+        #         and MISO in (portMiso, None)  # But can do with just output
+        #     ):  # Or just input
+        #         self._spi = _SPI(portId)
+        #         self._pins = (portSck, portMosi, portMiso)
+        #         break
+        # else:
+        #     raise ValueError(
+        #         "No Hardware SPI on (SCLK, MOSI, MISO)={}\nValid SPI ports:{}".format(
+        #             (clock, MOSI, MISO), spiPorts
+        #         )
+        #     )
 
     def configure(self, baudrate=100000, polarity=0, phase=0, bits=8):
-        raise NotImplementedError("configure")
         """Update the configuration"""
         if detector.board.any_nanopi and detector.chip.id == ap_chip.SUN8I:
+            raise NotImplementedError("")
             from adafruit_blinka.microcontroller.generic_linux.spi import SPI as _SPI
         elif detector.board.ftdi_ft232h:
+            raise NotImplementedError("")
             from adafruit_blinka.microcontroller.ftdi_mpsse.mpsse.spi import (
                 SPI as _SPI,
             )
         elif detector.board.ftdi_ft2232h:
+            raise NotImplementedError("")
             from adafruit_blinka.microcontroller.ftdi_mpsse.mpsse.spi import (
                 SPI as _SPI,
             )
         elif detector.board.binho_nova:
+            raise NotImplementedError("")
             from adafruit_blinka.microcontroller.nova.spi import SPI as _SPI
         elif detector.board.greatfet_one:
+            raise NotImplementedError("")
             from adafruit_blinka.microcontroller.nxp_lpc4330.spi import SPI as _SPI
         elif detector.board.any_lubancat and detector.chip.id == ap_chip.IMX6ULL:
+            raise NotImplementedError("")
             from adafruit_blinka.microcontroller.generic_linux.spi import SPI as _SPI
         elif detector.board.pico_u2if:
+            raise NotImplementedError("")
             from adafruit_blinka.microcontroller.rp2040_u2if.spi import SPI_Pico as _SPI
         elif detector.board.feather_u2if:
+            raise NotImplementedError("")
             from adafruit_blinka.microcontroller.rp2040_u2if.spi import (
                 SPI_Feather as _SPI,
             )
         elif detector.board.itsybitsy_u2if:
+            raise NotImplementedError("")
             from adafruit_blinka.microcontroller.rp2040_u2if.spi import (
                 SPI_ItsyBitsy as _SPI,
             )
         elif detector.board.macropad_u2if:
+            raise NotImplementedError("")
             from adafruit_blinka.microcontroller.rp2040_u2if.spi import (
                 SPI_MacroPad as _SPI,
             )
         elif detector.board.qtpy_u2if:
+            raise NotImplementedError("")
             from adafruit_blinka.microcontroller.rp2040_u2if.spi import SPI_QTPY as _SPI
         elif detector.chip.id == ap_chip.RP2040:
+            raise NotImplementedError("")
             from adafruit_blinka.microcontroller.rp2040.spi import SPI as _SPI
         elif detector.board.any_embedded_linux:
+            raise NotImplementedError("")
             from adafruit_blinka.microcontroller.generic_linux.spi import SPI as _SPI
         else:
-            from adafruit_blinka.microcontroller.generic_micropython.spi import (
+            from my_adafruit_blinka_microcontroller_generic_micropython_spi import (
                 SPI as _SPI,
             )
 
         if self._locked:
             # TODO check if #init ignores MOSI=None rather than unsetting, to save _pinIds attribute
-            self._spi.init(
-                baudrate=baudrate,
-                polarity=polarity,
-                phase=phase,
-                bits=bits,
-                firstbit=_SPI.MSB,
-            )
+            # self._spi.init(
+            #     baudrate=baudrate,
+            #     polarity=polarity,
+            #     phase=phase,
+            #     bits=bits,
+            #     firstbit=_SPI.MSB,
+            # )
+            print("self._spi.init")
         else:
             raise RuntimeError("First call try_lock()")
 
